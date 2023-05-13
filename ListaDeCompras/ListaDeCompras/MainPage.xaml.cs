@@ -1,4 +1,5 @@
-﻿using dotMorten.Xamarin.Forms;
+﻿using Acr.UserDialogs;
+using dotMorten.Xamarin.Forms;
 using ListaDeCompras.SqLite;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace ListaDeCompras
     {        
         private BancoDadosSQLite bancoDados;
         List<Compras> ListCompras;
+        string descricao, idCompra;
         public MainPage()
         {            
             InitializeComponent();
@@ -37,7 +39,7 @@ namespace ListaDeCompras
                 return;
             }
 
-            if (txtDescricao.Text != "")
+            if (txtDescricao.Text != null)
             {
                 await Navigation.PushAsync(new Index(txtDescricao.Text.Trim(), NumeroAleatorio));
                 txtDescricao.Text = "";
@@ -53,8 +55,8 @@ namespace ListaDeCompras
             if (args.SelectedItem != null)
             {
                 var selectedItem = args.SelectedItem;
-                string idCompra = (string)selectedItem.GetType().GetProperty("IdCompra").GetValue(selectedItem, null);
-                string descricao = (string)selectedItem.GetType().GetProperty("Descricao").GetValue(selectedItem, null);
+                descricao = (string)selectedItem.GetType().GetProperty("Descricao").GetValue(selectedItem, null);
+                idCompra = (string)selectedItem.GetType().GetProperty("IdCompra").GetValue(selectedItem, null);                
 
                 await Navigation.PushAsync(new Index(descricao, idCompra));
             }
@@ -130,6 +132,63 @@ namespace ListaDeCompras
                     var suggestions = await bancoDados.ObterProdutos();
                     box.ItemsSource = suggestions.Where(x => x.Ano.ToString().Contains(box.Text)).Select(x => x.Ano).Distinct().ToList();
                 }
+            }
+        }
+
+        private async void ToolBackUp_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                string LocalPath = "/storage/emulated/0/Download/BackUp.csv";
+                ListCompras = await bancoDados.ObterProdutos();
+                ComprasHelper.ExportarCsv(LocalPath, ListCompras);
+                UserDialogs.Instance.Toast("Aquivo de backUp Salvo!", TimeSpan.FromSeconds(5));
+            }
+            catch (Exception)
+            {
+                UserDialogs.Instance.Toast("Ocorreu um erro ao fazer o BackUp!", TimeSpan.FromSeconds(5));
+            }
+        }
+
+        private async void ToolImportar_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var BackUpImports = ComprasHelper.ImportarCsv("/storage/emulated/0/Documents/BackUp.csv");
+
+                foreach (var item in BackUpImports)
+                {
+                    await bancoDados.AdicionarProdutosAsync(item);
+                }
+
+                await Pesquisa(DateTime.Now.Date.ToString("MMMM"), DateTime.Now.Year);
+
+                UserDialogs.Instance.Toast("Aquivo de backUp importado com sucesso!", TimeSpan.FromSeconds(5));
+            }
+            catch (Exception)
+            {
+                UserDialogs.Instance.Toast("Ocorreu um erro ao importar o BackUp!", TimeSpan.FromSeconds(5));
+            }
+        }
+
+        private async void ToolExcluirCompra_Clicked(object sender, EventArgs e)
+        {
+            var Dialogo = await DisplayAlert("Excluír", "Deseja Excluír? " + descricao, "Sim", "Não");
+
+            ListCompras = await bancoDados.ObterProdutosAsync(idCompra);
+
+            if (Dialogo == true)
+            {
+                foreach (var item in ListCompras)
+                {
+                    await bancoDados.ExcluirProdutosAsync(item);
+                }
+                
+                await Pesquisa(DateTime.Now.Date.ToString("MMMM"), DateTime.Now.Year);
+            }
+            else
+            {
+                UserDialogs.Instance.Toast("Cancelado!", TimeSpan.FromSeconds(1));
             }
         }
     }

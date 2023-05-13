@@ -1,8 +1,11 @@
 ﻿using Acr.UserDialogs;
+using Android;
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
 
 namespace ListaDeCompras.Droid
 {
@@ -17,6 +20,16 @@ namespace ListaDeCompras.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             UserDialogs.Init(this);
             LoadApplication(new App());
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != (int)Android.Content.PM.Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 0);
+            }
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.ReadExternalStorage) != (int)Android.Content.PM.Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.ReadExternalStorage }, 0);
+            }
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

@@ -5,6 +5,12 @@
              x:Class="ListaDeCompras.MainPage"
              Title="Início">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="ToolBackUp" Text="Fazer BackUp" Clicked="ToolBackUp_Clicked" Order="Primary"></ToolbarItem>
+        <ToolbarItem x:Name="ToolImportar" Text="Importar BackUp" Clicked="ToolImportar_Clicked" Order="Secondary"></ToolbarItem>
+        <ToolbarItem x:Name="ToolExcluir" Text="Excluír Compra" Clicked="ToolExcluirCompra_Clicked" Order="Secondary"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -28,15 +34,17 @@
             </Frame>
 
             <Label Text="Clique na compra para ver os detalhes na lista"></Label>
-            
+
+            <Label Text="Toque e segure para excluír uma compra"></Label>
+
             <ListView x:Name="ListViewUltimasCompras"                      
                     HasUnevenRows="True"                     
-                    ItemSelected="ListViewUltimasCompras_ItemSelected"
+                    ItemSelected="ListViewUltimasCompras_ItemSelected"                    
                     SeparatorColor="Purple">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-
+                           
                             <Grid Padding="5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="70"></RowDefinition>
