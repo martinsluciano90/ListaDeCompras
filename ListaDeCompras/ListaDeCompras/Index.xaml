@@ -127,7 +127,7 @@
 
                                             <Label Text="V. Unitário" TextColor="Black" FontSize="Small"></Label>
                                             <Label x:Name="lblValorUnitario" Text="{Binding ValorUnitario}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
-                                    VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
+                                                   VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
 
                                         </StackLayout>
 
@@ -142,8 +142,8 @@
                                         <StackLayout HorizontalOptions="Center">
 
                                             <Label Text="Sub Total" TextColor="Black" FontSize="Small"></Label>
-                                            <Label x:Name="lblTotal" Text="{Binding Total}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
-                                    VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
+                                            <Label x:Name="lblTotal" Text="{Binding TotalFormatted}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
+                                                   VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
 
                                         </StackLayout>
 

@@ -18,6 +18,10 @@
                 <StackLayout Orientation="Vertical">
 
                     <Label Text="Últimas Compras" TextColor="Black" FontSize="Title" FontAttributes="Bold" HorizontalTextAlignment="Center"></Label>
+                    <controle:AutoSuggestBox x:Name="txtMes" TextColor="Black" PlaceholderText="Digite o Mês (Pesquisa)"
+                                             SuggestionChosen="txtMes_SuggestionChosen" TextChanged="txtMes_TextChanged"></controle:AutoSuggestBox>
+                    <controle:AutoSuggestBox x:Name="txtAno" TextColor="Black" PlaceholderText="Digite o Ano (Pesquisa)"
+                                             SuggestionChosen="txtAno_SuggestionChosen" TextChanged="txtAno_TextChanged"></controle:AutoSuggestBox>
                     
                 </StackLayout>
                 

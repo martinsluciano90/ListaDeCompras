@@ -1,10 +1,10 @@
-﻿using dotMorten.Xamarin.Forms;
+﻿using Acr.UserDialogs;
+using dotMorten.Xamarin.Forms;
 using ListaDeCompras.SqLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -47,7 +47,7 @@ namespace ListaDeCompras
                 else
                 {
                     var suggestions = await bancoDados.ObterProdutos();
-                    box.ItemsSource = suggestions.Where(x => RemoverAcentos.Remover(x.Nome.ToUpper()).Contains(RemoverAcentos.Remover(box.Text.ToUpper()))).Select(x => x.Nome).Distinct().ToList();
+                    box.ItemsSource = ListCompras.Where(x => RemoverAcentos.Remover(x.Nome.ToUpper()).Contains(RemoverAcentos.Remover(box.Text.ToUpper()))).Select(x => x.Nome).Distinct().ToList();
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace ListaDeCompras
                     Ano = DateTime.Now.Year,
                     Nome = txtProduto.Text,
                     Mes = DateTime.Now.Date.ToString("MMMM"),
-                    Quantidade = Convert.ToInt32(txtQuatidade.Text),
+                    Quantidade = Convert.ToDecimal(txtQuatidade.Text),
                     ValorUnitario = Convert.ToDecimal(txtValorUnitario.Text)
                 };
 
@@ -85,7 +85,7 @@ namespace ListaDeCompras
                 txtQuatidade.Text = "1";
                 txtValorUnitario.Text = "";
 
-                await DisplayAlert("Produto", "Produto Incluído!", "OK");
+                UserDialogs.Instance.Toast("Produto Incluído!", TimeSpan.FromSeconds(1));
             }
         }
 
@@ -102,7 +102,7 @@ namespace ListaDeCompras
                     Id = Convert.ToInt32(lblId.Text),
                     Nome = txtProduto.Text,
                     Mes = DateTime.Now.Date.ToString("MMMM"),
-                    Quantidade = Convert.ToInt32(txtQuatidade.Text),
+                    Quantidade = Convert.ToDecimal(txtQuatidade.Text),
                     ValorUnitario = Convert.ToDecimal(txtValorUnitario.Text)
                 };
 
@@ -123,7 +123,7 @@ namespace ListaDeCompras
                 txtQuatidade.Text = "1";
                 txtValorUnitario.Text = "";
 
-                await DisplayAlert("Produto", "Produto Atualizado!", "OK");
+                UserDialogs.Instance.Toast("Produto Atualizado!", TimeSpan.FromSeconds(1));
             }
             else
             {
@@ -171,7 +171,7 @@ namespace ListaDeCompras
                         Id = Convert.ToInt32(lblId.Text),
                         Nome = txtProduto.Text,
                         Mes = DateTime.Now.Date.ToString("MMMM"),
-                        Quantidade = Convert.ToInt32(txtQuatidade.Text),
+                        Quantidade = Convert.ToDecimal(txtQuatidade.Text),
                         ValorUnitario = Convert.ToDecimal(txtValorUnitario.Text)
                     };
 
@@ -192,11 +192,11 @@ namespace ListaDeCompras
                     txtQuatidade.Text = "1";
                     txtValorUnitario.Text = "";
 
-                    await DisplayAlert("Produto", "Produto Excluído!", "OK");
+                    UserDialogs.Instance.Toast("Produto Excluído!", TimeSpan.FromSeconds(1));
                 }
                 else
                 {
-                    await DisplayAlert("Excluír", "Cancelado!", "OK");
+                    UserDialogs.Instance.Toast("Cancelado!", TimeSpan.FromSeconds(1));
                 }
             }
             else

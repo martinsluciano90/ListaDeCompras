@@ -134,6 +134,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\..\martinsluciano90\Acr.UserDialogsCalcDp\src\Acr.UserDialogs\Acr.UserDialogs.csproj">
+      <Project>{b1cb400d-62df-4614-95bd-b1ccd5edbd77}</Project>
+      <Name>Acr.UserDialogs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ListaDeCompras\ListaDeCompras.csproj">
       <Project>{2A51FCEA-BE13-4DBB-AF94-37D93ECC2940}</Project>
       <Name>ListaDeCompras</Name>

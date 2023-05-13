@@ -8,7 +8,7 @@ namespace ListaDeCompras.SqLite
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string Nome { get; set; }
-        public int Quantidade { get; set; }
+        public decimal Quantidade { get; set; }
         public decimal ValorUnitario { get; set; } 
         [Ignore]
         public decimal Total => Quantidade * ValorUnitario;
@@ -17,5 +17,6 @@ namespace ListaDeCompras.SqLite
         public DateTime DataHora { get; set; }
         public string IdCompra { get; set; }
         public string Descricao { get; set; }
+        public string TotalFormatted => Total.ToString("N2");
     }
 }
