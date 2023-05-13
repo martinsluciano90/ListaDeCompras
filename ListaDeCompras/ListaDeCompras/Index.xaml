@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controle="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"
+             x:Class="ListaDeCompras.Index"
+             Title="Lista de Compras">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="65"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackLayout Orientation="Vertical" Padding="5" Grid.Row="0">
+
+            <StackLayout x:Name="StkTotal">
+
+                <Frame CornerRadius="15">
+
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+
+                        <Label FontAttributes="Bold" FontSize="Default" Text="Total" TextColor="Black" VerticalOptions="Center"></Label>
+                        <Label x:Name="txtTotal" FontAttributes="Bold" FontSize="Title" Text="Total" TextColor="Red"></Label>
+                        <Label x:Name="txtItens" FontAttributes="Bold" FontSize="Title" Text="Total" TextColor="Green"></Label>
+
+                    </StackLayout>
+
+                </Frame>
+
+            </StackLayout>
+
+            <StackLayout x:Name="StkDados">
+
+                <Frame CornerRadius="15">
+
+                    <StackLayout>
+
+                        <Label x:Name="lblAno" IsVisible="false"></Label>
+                        <Label x:Name="lblId" IsVisible="false"></Label>
+                        <Label x:Name="lblDataHora" IsVisible="false"></Label>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <controle:AutoSuggestBox x:Name="txtProduto" PlaceholderText="Digite o Produto" PlaceholderTextColor="Black"
+                                                     TextColor="Black" TextChanged="txtProduto_TextChanged" HorizontalOptions="FillAndExpand"
+                                                     SuggestionChosen="txtProduto_SuggestionChosen"></controle:AutoSuggestBox>
+
+                            <CheckBox x:Name="ChqPesquisa" CheckedChanged="ChqPesquisa_CheckedChanged"></CheckBox>
+                            <Label Text="Pesquisar" TextColor="Black" FontSize="Small" VerticalOptions="Center"></Label>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <Entry x:Name="txtQuatidade" Placeholder="Digite a Quantidade" PlaceholderColor="Black" FontSize="Large" TextColor="Black" Keyboard="Numeric" Text="1"></Entry>
+                            <Entry x:Name="txtValorUnitario" Placeholder="Digite o Valor" PlaceholderColor="Black" FontSize="Large" TextColor="Black" Keyboard="Numeric"></Entry>
+
+                        </StackLayout>
+
+                    </StackLayout>
+
+                </Frame>
+
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <RadioButton x:Name="ChqAZ" Content="A-Z" CheckedChanged="ChqAZ_CheckedChanged"></RadioButton>
+                <RadioButton x:Name="ChqOrdemDeCompra" Content="Item" CheckedChanged="ChqOrdemDeCompra_CheckedChanged"></RadioButton>
+                <Button x:Name="BtnLista" CornerRadius="15" Text="Lista" Clicked="BtnLista_Clicked"></Button>
+            </StackLayout>
+
+            <ListView x:Name="ListViewCompras"                      
+                    HasUnevenRows="True"
+                    ItemTapped="ListViewCompras_ItemTapped"                    
+                    SeparatorColor="Purple">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <Grid Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="70"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <StackLayout Grid.ColumnSpan="3" Grid.Row="0">
+
+                                    <Frame CornerRadius="15" BackgroundColor="AliceBlue">
+
+                                        <StackLayout HorizontalOptions="Center">
+
+                                            <Label x:Name="lblProduto" Text="{Binding Nome}" TextColor="Black" FontSize="Large" FontAttributes="Bold" VerticalTextAlignment="Center"></Label>
+
+                                        </StackLayout>
+
+                                    </Frame>
+
+                                </StackLayout>
+
+                                <StackLayout Grid.Column="0" Grid.Row="1">
+
+                                    <Frame CornerRadius="15">
+
+                                        <StackLayout HorizontalOptions="Center">
+
+                                            <Label Text="Quantidade" TextColor="Black" FontSize="Small"></Label>
+                                            <Label x:Name="lblQuantidade" Text="{Binding Quantidade}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
+                                                    VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
+
+                                        </StackLayout>
+
+                                    </Frame>
+
+                                </StackLayout>
+
+                                <StackLayout Grid.Column="1" Grid.Row="1">
+
+                                    <Frame CornerRadius="15">
+
+                                        <StackLayout HorizontalOptions="Center">
+
+                                            <Label Text="V. Unitário" TextColor="Black" FontSize="Small"></Label>
+                                            <Label x:Name="lblValorUnitario" Text="{Binding ValorUnitario}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
+                                    VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
+
+                                        </StackLayout>
+
+                                    </Frame>
+
+                                </StackLayout>
+
+                                <StackLayout Grid.Column="2" Grid.Row="1">
+
+                                    <Frame CornerRadius="15">
+
+                                        <StackLayout HorizontalOptions="Center">
+
+                                            <Label Text="Sub Total" TextColor="Black" FontSize="Small"></Label>
+                                            <Label x:Name="lblTotal" Text="{Binding Total}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
+                                    VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
+
+                                        </StackLayout>
+
+                                    </Frame>
+
+                                </StackLayout>
+
+                            </Grid>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+
+        <StackLayout Padding="5" Grid.Row="1" Orientation="Horizontal">
+
+            <Button x:Name="BtnExcluir" CornerRadius="15" BackgroundColor="Red" Text="Excluír" FontSize="Medium" Clicked="BtnExcluir_Clicked" HorizontalOptions="FillAndExpand"></Button>
+            <Button x:Name="BtnAtualizar" CornerRadius="15" BackgroundColor="#FFBE00" Text="Atualizar" FontSize="Medium" Clicked="BtnAtualizar_Clicked" HorizontalOptions="FillAndExpand"></Button>
+            <Button CornerRadius="15" BackgroundColor="Green" Text="Adicionar" FontSize="Medium" Clicked="Button_Clicked"  HorizontalOptions="FillAndExpand"></Button>
+
+        </StackLayout>
+
+    </Grid>
+
+</ContentPage>
