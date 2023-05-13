@@ -28,9 +28,18 @@ namespace ListaDeCompras
 
         private async void GoToList_Clicked(object sender, EventArgs e)
         {
+            string NumeroAleatorio = GerarNumeroAleatorio.GeraSenhaAleatoria();
+            ListCompras = await bancoDados.ObterProdutosAsync(NumeroAleatorio);
+
+            if (ListCompras.Count > 0)
+            {
+                await DisplayAlert("Erro", "Já esxiste uma compra com esse ID, tente novamente!", "Ok");
+                return;
+            }
+
             if (txtDescricao.Text != "")
             {
-                await Navigation.PushAsync(new Index(txtDescricao.Text.Trim(), GerarNumeroAleatorio.GeraSenhaAleatoria()));
+                await Navigation.PushAsync(new Index(txtDescricao.Text.Trim(), NumeroAleatorio));
                 txtDescricao.Text = "";
             }
             else
