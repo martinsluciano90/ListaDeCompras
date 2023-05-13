@@ -13,9 +13,13 @@ namespace ListaDeCompras.SqLite
             conexao = new SQLiteAsyncConnection(caminho);            
             conexao.CreateTableAsync<Compras>().Wait();
         }
-        public async Task<List<Compras>> ObterProdutosAsync(string Mes, int Ano)
+        public async Task<List<Compras>> ObterProdutosAsync(string Idcompra)
         {
-            return await conexao.Table<Compras>().Where(x => x.Mes.ToUpper() == Mes.ToUpper() & x.Ano == Ano).ToListAsync();
+            return await conexao.Table<Compras>().Where(x => x.IdCompra == Idcompra).ToListAsync();
+        }
+        public async Task<List<Compras>> ObterProdutosAsyncDate(string Mes, int Ano)
+        {
+            return await conexao.Table<Compras>().Where(x => x.Mes == Mes && x.Ano == Ano).ToListAsync();
         }
         public async Task<List<Compras>> ObterProdutos()
         {

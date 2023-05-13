@@ -35,6 +35,8 @@
 
                     <StackLayout>
 
+                        <Label x:Name="lblDescricao" IsVisible="false"></Label>
+                        <Label x:Name="lblIdCompra" IsVisible="false"></Label>
                         <Label x:Name="lblAno" IsVisible="false"></Label>
                         <Label x:Name="lblId" IsVisible="false"></Label>
                         <Label x:Name="lblDataHora" IsVisible="false"></Label>
@@ -65,8 +67,7 @@
 
             <StackLayout Orientation="Horizontal">
                 <RadioButton x:Name="ChqAZ" Content="A-Z" CheckedChanged="ChqAZ_CheckedChanged"></RadioButton>
-                <RadioButton x:Name="ChqOrdemDeCompra" Content="Item" CheckedChanged="ChqOrdemDeCompra_CheckedChanged"></RadioButton>
-                <Button x:Name="BtnLista" CornerRadius="15" Text="Lista" Clicked="BtnLista_Clicked"></Button>
+                <RadioButton x:Name="ChqOrdemDeCompra" Content="Item" CheckedChanged="ChqOrdemDeCompra_CheckedChanged"></RadioButton>               
             </StackLayout>
 
             <ListView x:Name="ListViewCompras"                      

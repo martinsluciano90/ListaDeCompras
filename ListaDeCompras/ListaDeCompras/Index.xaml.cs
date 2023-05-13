@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,13 +15,21 @@ namespace ListaDeCompras
     {
         private BancoDadosSQLite bancoDados;
         List<Compras> ListCompras;
-        public Index()
+        string NrBusca;
+        public Index(string descricaoCompra, string StringAleatoria)
         {
             InitializeComponent();
+
+            string Local = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "bancoDadosSQLite.db3");
+            bancoDados = new BancoDadosSQLite(Local);
+
+            lblIdCompra.Text = StringAleatoria;
+            lblDescricao.Text = descricaoCompra;
+            NrBusca = StringAleatoria;
         }
         protected override async void OnAppearing()
         {
-            ListCompras = await bancoDados.ObterProdutosAsync(DateTime.Now.Date.ToString("MMMM"), DateTime.Now.Year);
+            ListCompras = await bancoDados.ObterProdutosAsync(NrBusca);
             ListViewCompras.ItemsSource = ListCompras.OrderBy(x => x.Nome);
             txtTotal.Text = ListCompras.Where(x => x.Mes.ToUpper() == DateTime.Now.Date.ToString("MMMM").ToUpper() && x.Ano == DateTime.Now.Year).Sum(x => x.Total).ToString("C");
             txtItens.Text = " / " + ListCompras.Where(x => x.Mes.ToUpper() == DateTime.Now.Date.ToString("MMMM").ToUpper() && x.Ano == DateTime.Now.Year).Sum(x => x.Quantidade).ToString() + " Itens";
@@ -49,6 +58,8 @@ namespace ListaDeCompras
             {
                 var SaveProduto = new Compras
                 {
+                    Descricao = lblDescricao.Text,
+                    IdCompra = lblIdCompra.Text,
                     DataHora = DateTime.Now,
                     Ano = DateTime.Now.Year,
                     Nome = txtProduto.Text,
@@ -84,6 +95,8 @@ namespace ListaDeCompras
             {
                 var UpdateProduto = new Compras
                 {
+                    Descricao = lblDescricao.Text,
+                    IdCompra = lblIdCompra.Text,
                     DataHora = DateTime.Now,
                     Ano = Convert.ToInt32(lblAno.Text),
                     Id = Convert.ToInt32(lblId.Text),
@@ -94,7 +107,7 @@ namespace ListaDeCompras
                 };
 
                 await bancoDados.AtualizarProdutosAsync(UpdateProduto);
-                ListCompras = await bancoDados.ObterProdutosAsync(DateTime.Now.Date.ToString("MMMM"), DateTime.Now.Year);
+                ListCompras = await bancoDados.ObterProdutosAsync(NrBusca);
                 if (ChqAZ.IsChecked)
                 {
                     ListViewCompras.ItemsSource = ListCompras.OrderBy(x => x.Nome);
@@ -124,6 +137,8 @@ namespace ListaDeCompras
             {
                 if (e.Item is Compras ItemSelect)
                 {
+                    lblDescricao.Text = ItemSelect.Descricao;
+                    lblIdCompra.Text = ItemSelect.IdCompra.ToString();
                     lblDataHora.Text = ItemSelect.DataHora.ToString();
                     lblAno.Text = ItemSelect.Ano.ToString();
                     lblId.Text = ItemSelect.Id.ToString();
@@ -149,6 +164,8 @@ namespace ListaDeCompras
                 {
                     var DeleteProduto = new Compras
                     {
+                        Descricao = lblDescricao.Text,
+                        IdCompra = lblIdCompra.Text,
                         DataHora = DateTime.Now,
                         Ano = Convert.ToInt32(lblAno.Text),
                         Id = Convert.ToInt32(lblId.Text),
@@ -159,7 +176,7 @@ namespace ListaDeCompras
                     };
 
                     await bancoDados.ExcluirProdutosAsync(DeleteProduto);
-                    ListCompras = await bancoDados.ObterProdutosAsync(DateTime.Now.Date.ToString("MMMM"), DateTime.Now.Year);
+                    ListCompras = await bancoDados.ObterProdutosAsync(NrBusca);
                     if (ChqAZ.IsChecked)
                     {
                         ListViewCompras.ItemsSource = ListCompras.OrderBy(x => x.Nome);
@@ -218,11 +235,6 @@ namespace ListaDeCompras
 
                 throw;
             }
-        }
-
-        private async void BtnLista_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new PageListView());
         }
 
         private void txtProduto_SuggestionChosen(object sender, AutoSuggestBoxSuggestionChosenEventArgs e)

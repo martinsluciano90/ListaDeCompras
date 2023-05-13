@@ -5,6 +5,106 @@
              x:Class="ListaDeCompras.MainPage"
              Title="Início">
 
-    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackLayout Orientation="Vertical" Padding="5" Grid.Row="0">
+
+            <Frame CornerRadius="15">
+
+                <StackLayout Orientation="Vertical">
+
+                    <Label Text="Últimas Compras" TextColor="Black" FontSize="Title" FontAttributes="Bold" HorizontalTextAlignment="Center"></Label>
+                    
+                </StackLayout>
+                
+            </Frame>
+
+            <Label Text="Clique na compra para ver os detalhes na lista"></Label>
+            
+            <ListView x:Name="ListViewUltimasCompras"                      
+                    HasUnevenRows="True"                     
+                    ItemSelected="ListViewUltimasCompras_ItemSelected"
+                    SeparatorColor="Purple">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <Grid Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="70"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>                                    
+                                </Grid.ColumnDefinitions>
+
+                                <StackLayout Grid.ColumnSpan="2" Grid.Row="0">
+
+                                    <Frame CornerRadius="15" BackgroundColor="AliceBlue">
+
+                                        <StackLayout HorizontalOptions="Center">
+
+                                            <Label x:Name="lblProduto" Text="{Binding Descricao}" TextColor="Black" FontSize="Large" FontAttributes="Bold" VerticalTextAlignment="Center"></Label>
+
+                                        </StackLayout>
+
+                                    </Frame>
+
+                                </StackLayout>
+
+                                <StackLayout Grid.Column="0" Grid.Row="1">
+
+                                    <Frame CornerRadius="15">
+
+                                        <StackLayout HorizontalOptions="Center">
+
+                                            <Label Text="Itens" TextColor="Black" FontSize="Small"></Label>
+                                            <Label x:Name="lblQuantidade" Text="{Binding TotalQuantidade}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
+                                                   VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
+
+                                        </StackLayout>
+
+                                    </Frame>
+
+                                </StackLayout>
+
+                                <StackLayout Grid.Column="1" Grid.Row="1">
+
+                                    <Frame CornerRadius="15">
+
+                                        <StackLayout HorizontalOptions="Center">
+
+                                            <Label Text="Total" TextColor="Black" FontSize="Small" HorizontalOptions="Center"></Label>
+                                            <Label x:Name="lblTotal" Text="{Binding TotalValor}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
+                                                   VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
+
+                                        </StackLayout>
+
+                                    </Frame>
+
+                                </StackLayout>
+
+                            </Grid>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+        </StackLayout>
+
+        <StackLayout Padding="5" Grid.Row="1" Orientation="Vertical">
+
+            <Entry x:Name="txtDescricao" Placeholder="Descrição (Ex: Compras de Natal)"></Entry>
+            <Button x:Name="GoToList" CornerRadius="15" BackgroundColor="#FFBE00" Text="Iniciar nova compra" FontSize="Medium" Clicked="GoToList_Clicked" HorizontalOptions="FillAndExpand"></Button>
+            
+        </StackLayout>
+        
+    </Grid>
 
 </ContentPage>

@@ -15,5 +15,7 @@ namespace ListaDeCompras.SqLite
         public string Mes { get; set; }
         public int Ano { get; set; }
         public DateTime DataHora { get; set; }
+        public string IdCompra { get; set; }
+        public string Descricao { get; set; }
     }
 }
