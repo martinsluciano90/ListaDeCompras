@@ -139,7 +139,7 @@ namespace ListaDeCompras
         {
             try
             {
-                string LocalPath = "/storage/emulated/0/Download/BackUp.csv";
+                string LocalPath = "/storage/emulated/0/Documents/BackUp.csv";
                 ListCompras = await bancoDados.ObterProdutos();
                 ComprasHelper.ExportarCsv(LocalPath, ListCompras);
                 UserDialogs.Instance.Toast("Aquivo de backUp Salvo!", TimeSpan.FromSeconds(5));
