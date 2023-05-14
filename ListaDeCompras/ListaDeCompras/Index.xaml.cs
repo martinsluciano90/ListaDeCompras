@@ -47,7 +47,7 @@ namespace ListaDeCompras
                 else
                 {
                     var suggestions = await bancoDados.ObterProdutos();
-                    box.ItemsSource = ListCompras.Where(x => RemoverAcentos.Remover(x.Nome.ToUpper()).Contains(RemoverAcentos.Remover(box.Text.ToUpper()))).Select(x => x.Nome).Distinct().ToList();
+                    box.ItemsSource = suggestions.Where(x => RemoverAcentos.Remover(x.Nome.ToUpper()).Contains(RemoverAcentos.Remover(box.Text.ToUpper()))).Select(x => x.Nome).Distinct().ToList();
                 }
             }
         }
