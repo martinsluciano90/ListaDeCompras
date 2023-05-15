@@ -188,6 +188,8 @@ namespace ListaDeCompras
             {
                 Dados += $"{item.Nome}\n";
             }
+
+            await Sheet.CloseSheet();
             await Browser.OpenAsync("https://api.whatsapp.com/send?phone=55" + txtTel1.Text + "&text=" + Dados);
         }
 
@@ -203,11 +205,13 @@ namespace ListaDeCompras
                 {
                     await bancoDados.ExcluirProdutosAsync(item);
                 }
-                
+
+                await Sheet.CloseSheet();
                 await Pesquisa(DateTime.Now.Date.ToString("MMMM"), DateTime.Now.Year);
             }
             else
             {
+                await Sheet.CloseSheet();
                 UserDialogs.Instance.Toast("Cancelado!", TimeSpan.FromSeconds(1));
             }
         }

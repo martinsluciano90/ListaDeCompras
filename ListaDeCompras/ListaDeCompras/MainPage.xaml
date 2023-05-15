@@ -8,8 +8,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="ToolBackUp" Text="Fazer BackUp" Clicked="ToolBackUp_Clicked" Order="Primary"></ToolbarItem>
-        <ToolbarItem x:Name="ToolImportar" Text="Importar BackUp" Clicked="ToolImportar_Clicked" Order="Secondary"></ToolbarItem>
-        <ToolbarItem x:Name="ToolExcluir" Text="Excluír Compra" Clicked="ToolExcluirCompra_Clicked" Order="Secondary"></ToolbarItem>
+        <ToolbarItem x:Name="ToolImportar" Text="Importar BackUp" Clicked="ToolImportar_Clicked" Order="Secondary"></ToolbarItem>        
     </ContentPage.ToolbarItems>
 
     <AbsoluteLayout>
@@ -139,6 +138,7 @@
 
                             <Button x:Name="btnIrParaLista" CornerRadius="15" BackgroundColor="#FFBE00" Text="Ir Para Lista" FontSize="Small" Clicked="btnIrParaLista_Clicked" HorizontalOptions="Fill"></Button>
                             <Button x:Name="btnCompartilhar" CornerRadius="15" BackgroundColor="#FFBE00" Text="Compartilhar" FontSize="Small" Clicked="btnCompartilhar_Clicked" HorizontalOptions="Fill"></Button>
+                            <Button x:Name="btnExcluir" CornerRadius="15" BackgroundColor="Red" Text="Excluir" FontSize="Small" Clicked="ToolExcluirCompra_Clicked" HorizontalOptions="Fill"></Button>
 
                         </StackLayout>
                         
