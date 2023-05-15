@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ListaDeCompras
@@ -24,6 +25,7 @@ namespace ListaDeCompras
         }
         protected override async void OnAppearing()
         {
+            await Sheet.CloseSheet();
             await Pesquisa(DateTime.Now.Date.ToString("MMMM"), DateTime.Now.Year);
             base.OnAppearing();
         }
@@ -56,9 +58,9 @@ namespace ListaDeCompras
             {
                 var selectedItem = args.SelectedItem;
                 descricao = (string)selectedItem.GetType().GetProperty("Descricao").GetValue(selectedItem, null);
-                idCompra = (string)selectedItem.GetType().GetProperty("IdCompra").GetValue(selectedItem, null);                
+                idCompra = (string)selectedItem.GetType().GetProperty("IdCompra").GetValue(selectedItem, null);
 
-                await Navigation.PushAsync(new Index(descricao, idCompra));
+                await Sheet.OpenSheet();
             }
         }
 
@@ -169,6 +171,24 @@ namespace ListaDeCompras
             {
                 UserDialogs.Instance.Toast("Ocorreu um erro ao importar o BackUp!", TimeSpan.FromSeconds(5));
             }
+        }
+
+        private async void btnIrParaLista_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Index(descricao, idCompra));
+        }
+
+        private async void btnCompartilhar_Clicked(object sender, EventArgs e)
+        {
+            ListCompras = await bancoDados.ObterProdutosAsync(idCompra);
+
+            string Dados = "";
+
+            foreach (var item in ListCompras)
+            {
+                Dados += $"{item.Nome}\n";
+            }
+            await Browser.OpenAsync("https://api.whatsapp.com/send?phone=55" + txtTel1.Text + "&text=" + Dados);
         }
 
         private async void ToolExcluirCompra_Clicked(object sender, EventArgs e)

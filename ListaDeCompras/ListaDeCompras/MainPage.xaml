@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controle="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"             
+             xmlns:controle="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"
+             xmlns:local="clr-namespace:ListaDeCompras.Controls"
              x:Class="ListaDeCompras.MainPage"
              Title="Início">
 
@@ -10,113 +11,145 @@
         <ToolbarItem x:Name="ToolImportar" Text="Importar BackUp" Clicked="ToolImportar_Clicked" Order="Secondary"></ToolbarItem>
         <ToolbarItem x:Name="ToolExcluir" Text="Excluír Compra" Clicked="ToolExcluirCompra_Clicked" Order="Secondary"></ToolbarItem>
     </ContentPage.ToolbarItems>
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="120"></RowDefinition>
-        </Grid.RowDefinitions>
 
-        <StackLayout Orientation="Vertical" Padding="5" Grid.Row="0">
-
-            <Frame CornerRadius="15">
-
-                <StackLayout Orientation="Vertical">
-
-                    <Label Text="Últimas Compras" TextColor="Black" FontSize="Title" FontAttributes="Bold" HorizontalTextAlignment="Center"></Label>
-                    <controle:AutoSuggestBox x:Name="txtMes" TextColor="Black" PlaceholderText="Digite o Mês (Pesquisa)"
-                                             SuggestionChosen="txtMes_SuggestionChosen" TextChanged="txtMes_TextChanged"></controle:AutoSuggestBox>
-                    <controle:AutoSuggestBox x:Name="txtAno" TextColor="Black" PlaceholderText="Digite o Ano (Pesquisa)"
-                                             SuggestionChosen="txtAno_SuggestionChosen" TextChanged="txtAno_TextChanged"></controle:AutoSuggestBox>
-                    
-                </StackLayout>
-                
-            </Frame>
-
-            <Label Text="Clique na compra para ver os detalhes na lista"></Label>
-
-            <Label Text="Toque e segure para excluír uma compra"></Label>
-
-            <ListView x:Name="ListViewUltimasCompras"                      
-                    HasUnevenRows="True"                     
-                    ItemSelected="ListViewUltimasCompras_ItemSelected"                    
-                    SeparatorColor="Purple">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                           
-                            <Grid Padding="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="70"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>                                    
-                                </Grid.ColumnDefinitions>
-
-                                <StackLayout Grid.ColumnSpan="2" Grid.Row="0">
-
-                                    <Frame CornerRadius="15" BackgroundColor="AliceBlue">
-
-                                        <StackLayout HorizontalOptions="Center">
-
-                                            <Label x:Name="lblProduto" Text="{Binding Descricao}" TextColor="Black" FontSize="Large" FontAttributes="Bold" VerticalTextAlignment="Center"></Label>
-
-                                        </StackLayout>
-
-                                    </Frame>
-
-                                </StackLayout>
-
-                                <StackLayout Grid.Column="0" Grid.Row="1">
-
-                                    <Frame CornerRadius="15">
-
-                                        <StackLayout HorizontalOptions="Center">
-
-                                            <Label Text="Itens" TextColor="Black" FontSize="Small"></Label>
-                                            <Label x:Name="lblQuantidade" Text="{Binding TotalQuantidade}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
-                                                   VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
-
-                                        </StackLayout>
-
-                                    </Frame>
-
-                                </StackLayout>
-
-                                <StackLayout Grid.Column="1" Grid.Row="1">
-
-                                    <Frame CornerRadius="15">
-
-                                        <StackLayout HorizontalOptions="Center">
-
-                                            <Label Text="Total" TextColor="Black" FontSize="Small" HorizontalOptions="Center"></Label>
-                                            <Label x:Name="lblTotal" Text="{Binding TotalValor}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
-                                                   VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
-
-                                        </StackLayout>
-
-                                    </Frame>
-
-                                </StackLayout>
-
-                            </Grid>
-
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            
-        </StackLayout>
-
-        <StackLayout Padding="5" Grid.Row="1" Orientation="Vertical">
-
-            <Entry x:Name="txtDescricao" Placeholder="Descrição (Ex: Compras de Natal)"></Entry>
-            <Button x:Name="GoToList" CornerRadius="15" BackgroundColor="#FFBE00" Text="Iniciar nova compra" FontSize="Medium" Clicked="GoToList_Clicked" HorizontalOptions="FillAndExpand"></Button>
-            
-        </StackLayout>
+    <AbsoluteLayout>
         
-    </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="120"></RowDefinition>
+            </Grid.RowDefinitions>
 
+            <StackLayout Orientation="Vertical" Padding="5" Grid.Row="0">
+
+                <Frame CornerRadius="15">
+
+                    <StackLayout Orientation="Vertical">
+
+                        <Label Text="Últimas Compras" TextColor="Black" FontSize="Title" FontAttributes="Bold" HorizontalTextAlignment="Center"></Label>
+                        <controle:AutoSuggestBox x:Name="txtMes" TextColor="Black" PlaceholderText="Digite o Mês (Pesquisa)"
+                                                 SuggestionChosen="txtMes_SuggestionChosen" TextChanged="txtMes_TextChanged"></controle:AutoSuggestBox>
+                        <controle:AutoSuggestBox x:Name="txtAno" TextColor="Black" PlaceholderText="Digite o Ano (Pesquisa)"
+                                                 SuggestionChosen="txtAno_SuggestionChosen" TextChanged="txtAno_TextChanged"></controle:AutoSuggestBox>
+                    
+                    </StackLayout>
+                
+                </Frame>
+
+                <Label Text="Clique na compra para ver os detalhes na lista"></Label>
+
+                <Label Text="Toque e segure para excluír uma compra"></Label>
+
+                <ListView x:Name="ListViewUltimasCompras"                      
+                        HasUnevenRows="True"                     
+                        ItemSelected="ListViewUltimasCompras_ItemSelected"                    
+                        SeparatorColor="Purple">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                           
+                                <Grid Padding="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="70"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>                                    
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackLayout Grid.ColumnSpan="2" Grid.Row="0">
+
+                                        <Frame CornerRadius="15" BackgroundColor="AliceBlue">
+
+                                            <StackLayout HorizontalOptions="Center">
+
+                                                <Label x:Name="lblProduto" Text="{Binding Descricao}" TextColor="Black" FontSize="Large" FontAttributes="Bold" VerticalTextAlignment="Center"></Label>
+
+                                            </StackLayout>
+
+                                        </Frame>
+
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Column="0" Grid.Row="1">
+
+                                        <Frame CornerRadius="15">
+
+                                            <StackLayout HorizontalOptions="Center">
+
+                                                <Label Text="Itens" TextColor="Black" FontSize="Small"></Label>
+                                                <Label x:Name="lblQuantidade" Text="{Binding TotalQuantidade}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
+                                                       VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
+
+                                            </StackLayout>
+
+                                        </Frame>
+
+                                    </StackLayout>
+
+                                    <StackLayout Grid.Column="1" Grid.Row="1">
+
+                                        <Frame CornerRadius="15">
+
+                                            <StackLayout HorizontalOptions="Center">
+
+                                                <Label Text="Total" TextColor="Black" FontSize="Small" HorizontalOptions="Center"></Label>
+                                                <Label x:Name="lblTotal" Text="{Binding TotalValor}" TextColor="Black" FontSize="Large" FontAttributes="Bold"
+                                                       VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
+
+                                            </StackLayout>
+
+                                        </Frame>
+
+                                    </StackLayout>
+
+                                </Grid>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            
+            </StackLayout>
+
+            <StackLayout Padding="5" Grid.Row="1" Orientation="Vertical">
+
+                <Entry x:Name="txtDescricao" Placeholder="Descrição (Ex: Compras de Natal)"></Entry>
+                <Button x:Name="GoToList" CornerRadius="15" BackgroundColor="#FFBE00" Text="Iniciar nova compra" FontSize="Medium" Clicked="GoToList_Clicked" HorizontalOptions="FillAndExpand"></Button>
+            
+            </StackLayout>
+
+            <local:BottomSheetControl x:Name="Sheet" SheetHeight="200" Padding="5" AbsoluteLayout.LayoutBounds="1,0.9,-1,-1" AbsoluteLayout.LayoutFlags="PositionProportional">
+
+                <local:BottomSheetControl.SheetContent>
+
+                    <StackLayout x:Name="stackPrinc">
+
+                        <BoxView CornerRadius="2.5"
+                                BackgroundColor="Gray"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                HeightRequest="5"
+                                WidthRequest="40"/>
+
+                        <Entry x:Name="txtTel1" TextColor="Black" Placeholder="ddd + Telefone" PlaceholderColor="Black"></Entry>
+                        
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+
+                            <Button x:Name="btnIrParaLista" CornerRadius="15" BackgroundColor="#FFBE00" Text="Ir Para Lista" FontSize="Small" Clicked="btnIrParaLista_Clicked" HorizontalOptions="Fill"></Button>
+                            <Button x:Name="btnCompartilhar" CornerRadius="15" BackgroundColor="#FFBE00" Text="Compartilhar" FontSize="Small" Clicked="btnCompartilhar_Clicked" HorizontalOptions="Fill"></Button>
+
+                        </StackLayout>
+                        
+                    </StackLayout>
+
+                </local:BottomSheetControl.SheetContent>
+
+            </local:BottomSheetControl>
+
+        </Grid>
+
+    </AbsoluteLayout>
+    
 </ContentPage>
