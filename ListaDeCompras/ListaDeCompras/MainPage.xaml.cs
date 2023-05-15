@@ -184,7 +184,7 @@ namespace ListaDeCompras
 
             string Dados = "";
 
-            foreach (var item in ListCompras)
+            foreach (var item in ListCompras.OrderBy(x => x.Nome))
             {
                 Dados += $"{item.Nome}\n";
             }
