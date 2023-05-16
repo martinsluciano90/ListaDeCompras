@@ -184,9 +184,9 @@ namespace ListaDeCompras
 
             string Dados = "";
 
-            foreach (var item in ListCompras.OrderBy(x => x.Nome))
+            foreach (var item in ListCompras.OrderBy(x => x.Nome).Select(x => x.Nome).Distinct())
             {
-                Dados += $"{item.Nome}\n";
+                Dados += $"{item}\n";
             }
 
             await Sheet.CloseSheet();

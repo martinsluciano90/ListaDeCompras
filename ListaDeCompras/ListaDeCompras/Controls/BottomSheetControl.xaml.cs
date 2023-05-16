@@ -82,13 +82,11 @@ namespace ListaDeCompras.Controls
 
                     if (currentPosition < threshold)
                     {
-                        Backdrop.IsVisible = true;
                         await OpenSheet();                        
                     }
                     else
                     {
-                        await CloseSheet();
-                        Backdrop.IsVisible = false;
+                        await CloseSheet();                        
                     }
                 }
             }
