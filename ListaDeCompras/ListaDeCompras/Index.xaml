@@ -55,7 +55,7 @@
                         <StackLayout Orientation="Horizontal">
 
                             <Entry x:Name="txtQuatidade" Placeholder="Digite a Quantidade" PlaceholderColor="Black" FontSize="Large" TextColor="Black" Keyboard="Numeric" Text="1"></Entry>
-                            <Entry x:Name="txtValorUnitario" Placeholder="Digite o Valor" PlaceholderColor="Black" FontSize="Large" TextColor="Black" Keyboard="Numeric"></Entry>
+                            <Entry x:Name="txtValorUnitario" Placeholder="Digite o Valor" PlaceholderColor="Black" FontSize="Large" TextColor="Black" Keyboard="Numeric" Text="0"></Entry>
 
                         </StackLayout>
 

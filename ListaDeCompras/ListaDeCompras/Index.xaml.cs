@@ -83,7 +83,7 @@ namespace ListaDeCompras
 
                 txtProduto.Text = "";
                 txtQuatidade.Text = "1";
-                txtValorUnitario.Text = "";
+                txtValorUnitario.Text = "0";
 
                 UserDialogs.Instance.Toast("Produto Incluído!", TimeSpan.FromSeconds(1));
             }
@@ -121,7 +121,7 @@ namespace ListaDeCompras
 
                 txtProduto.Text = "";
                 txtQuatidade.Text = "1";
-                txtValorUnitario.Text = "";
+                txtValorUnitario.Text = "0";
 
                 UserDialogs.Instance.Toast("Produto Atualizado!", TimeSpan.FromSeconds(1));
             }
@@ -190,7 +190,7 @@ namespace ListaDeCompras
 
                     txtProduto.Text = "";
                     txtQuatidade.Text = "1";
-                    txtValorUnitario.Text = "";
+                    txtValorUnitario.Text = "0";
 
                     UserDialogs.Instance.Toast("Produto Excluído!", TimeSpan.FromSeconds(1));
                 }
